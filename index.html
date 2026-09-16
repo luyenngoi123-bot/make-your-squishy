@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Your Squishy!</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe9f5, #e9f7ff);
+    color: #555;
+}
+
+.header {
+    width: 100%;
+    padding: 22px 30px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ff76ad;
+}
+
+.logo span {
+    color: #8ecbff;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 35px auto;
+}
+
+.welcome {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    margin: 0;
+    font-size: 42px;
+    color: #ff72a9;
+}
+
+.welcome p {
+    font-size: 17px;
+    color: #777;
+}
+
+.card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #ff72a9;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 15px 18px;
+    border: 2px solid #ffd0e3;
+    border-radius: 15px;
+    outline: none;
+    font-size: 15px;
+}
+
+input:focus {
+    border-color: #ff8fbb;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.watch-btn {
+    background: #ff82b4;
+    color: white;
+}
+
+.watch-btn:hover {
+    transform: translateY(-2px);
+    background: #ff6ca6;
+}
+
+.clear-btn {
+    background: #eeeeee;
+    color: #666;
+    margin-left: 8px;
+}
+
+.video-box {
+    display: none;
+    margin-top: 25px;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #222;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.error {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: #ffe5e5;
+    color: #d95353;
+    border-radius: 12px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.step {
+    background: #fff7fb;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.step-number {
+    font-size: 30px;
+}
+
+.step h3 {
+    margin-bottom: 5px;
+    color: #ff72a9;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px;
+    color: #999;
+}
+
+@media (max-width: 650px) {
+    .input-area {
+        flex-direction: column;
+    }
+
+    .clear-btn {
+        margin-left: 0;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">🧸 Make Your <span>Squishy!</span></div>
+</header>
+
+<main class="container">
+
+    <section class="welcome">
+        <h1>Make Your Squishy! 🩷</h1>
+        <p>Make it. Paint it. Dry it. Squeeze it. ✨</p>
+    </section>
+
+    <section class="card">
+        <h2>📺 Watch while making your squishy</h2>
+
+        <div class="input-area">
+            <input
+                id="youtubeInput"
+                type="text"
+                placeholder="Dán link YouTube vào đây..."
+            >
+
+            <button class="watch-btn" onclick="watchVideo()">
+                ▶ Watch
+            </button>
+
+            <button class="clear-btn" onclick="clearVideo()">
+                ✕
+            </button>
+        </div>
+
+        <div id="error" class="error">
+            Không tìm thấy video. Hãy kiểm tra lại link YouTube nha!
+        </div>
+
+        <div id="videoBox" class="video-box">
+            <div class="video-wrapper">
+                <iframe
+                    id="youtubePlayer"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>🧸 How to make your squishy</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">✂️</div>
+                <h3>1. Cut</h3>
+                <p>Cut the foam into your favorite shape.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">🧱</div>
+                <h3>2. Mold</h3>
+                <p>Add clay and shape your squishy.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">🌬️</div>
+                <h3>3. Dry</h3>
+                <p>Wait for your squishy to dry.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">🎨</div>
+                <h3>4. Paint</h3>
+                <p>Draw and decorate your squishy.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">🥛</div>
+                <h3>5. Glue</h3>
+                <p>Brush on the white glue.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">✨</div>
+                <h3>6. Wax</h3>
+                <p>Cover it with wax and let it dry.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">🫧</div>
+                <h3>7. Squeeze!</h3>
+                <p>Finally, squeeze your finished squishy!</p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    Made for squishy lovers 🧸🩷
+</footer>
+
+<script>
+
+function getYouTubeID(url) {
+
+    url = url.trim();
+
+    // Direct 11-character YouTube ID
+    if (/^[a-zA-Z0-9_-]{11}$/.test(url)) {
+        return url;
+    }
+
+    try {
+        const parsed = new URL(url);
+
+        // youtube.com/watch?v=
+        if (parsed.hostname.includes("youtube.com")) {
+
+            const videoID = parsed.searchParams.get("v");
+
+            if (videoID) {
+                return videoID;
+            }
+
+            // youtube.com/shorts/VIDEO_ID
+            const shortsMatch = parsed.pathname.match(/\/shorts\/([^\/]+)/);
+
+            if (shortsMatch) {
+                return shortsMatch[1];
+            }
+
+            // youtube.com/embed/VIDEO_ID
+            const embedMatch = parsed.pathname.match(/\/embed\/([^\/]+)/);
+
+            if (embedMatch) {
+                return embedMatch[1];
+            }
+        }
+
+        // youtu.be/VIDEO_ID
+        if (parsed.hostname === "youtu.be") {
+            return parsed.pathname.substring(1).split("/")[0];
+        }
+
+    } catch (e) {
+        return null;
+    }
+
+    return null;
+}
+
+
+function watchVideo() {
+
+    const input = document.getElementById("youtubeInput");
+    const player = document.getElementById("youtubePlayer");
+    const videoBox = document.getElementById("videoBox");
+    const error = document.getElementById("error");
+
+    const videoID = getYouTubeID(input.value);
+
+    if (!videoID) {
+
+        error.style.display = "block";
+        videoBox.style.display = "none";
+        player.src = "";
+
+        return;
+    }
+
+    error.style.display = "none";
+
+    player.src =
+        "https://www.youtube.com/embed/" +
+        videoID +
+        "?autoplay=1&rel=0";
+
+    videoBox.style.display = "block";
+}
+
+
+function clearVideo() {
+
+    const input = document.getElementById("youtubeInput");
+    const player = document.getElementById("youtubePlayer");
+    const videoBox = document.getElementById("videoBox");
+    const error = document.getElementById("error");
+
+    input.value = "";
+    player.src = "";
+    videoBox.style.display = "none";
+    error.style.display = "none";
+}
+
+
+document.getElementById("youtubeInput").addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        watchVideo();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
